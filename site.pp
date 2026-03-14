@@ -5,14 +5,14 @@ node default {
     ensure => directory,
   }
 
-  # Level 1 - Hello file
+  # Level 1 - Hello File
   file { 'C:/PuppetMission/hello.txt':
     ensure  => file,
     content => "Puppet was here at Nayan Ghate",
     require => File['C:/PuppetMission'],
   }
 
-  # Level 2 - Stop Print Spooler
+  # Level 2 - Disable Print Spooler
   service { 'Spooler':
     ensure => stopped,
     enable => false,
@@ -28,6 +28,16 @@ node default {
     ensure => present,
     type   => string,
     data   => 'Success',
+  }
+
+  # Level 4 - Install Chocolatey
+  include chocolatey
+
+  # Level 4 - Install Notepad++
+  package { 'notepadplusplus':
+    ensure   => installed,
+    provider => chocolatey,
+    require  => Class['chocolatey'],
   }
 
 }
